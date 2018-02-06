@@ -2,10 +2,13 @@ package vertx;
 
 import vertx.function.Handler;
 
+import io.vertx.core.Vertx;
+import io.vertx.core.http.*;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.HttpServerOptions;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
+
+import java.util.function.Consumer;
 
 public class HandlerVerticle extends AbstractVerticle {
     public static void main(String[] args) {
@@ -15,7 +18,6 @@ public class HandlerVerticle extends AbstractVerticle {
             } catch (Throwable t) {
                 t.printStackTrace();
             }
-
         };
         Vertx vertx = Vertx.vertx();
         runner.accept(vertx);
