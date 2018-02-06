@@ -8,8 +8,8 @@ import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 
 public class HandlerVerticle extends AbstractVerticle {
-    private static Logger LOG = LoggerFactory.getLogger(HandlerVerticle.class)
-    
+    private static Logger LOG = LoggerFactory.getLogger(HandlerVerticle.class);
+
     public static void main(String[] args) {
         LOG.info("Starting...");
         try {
