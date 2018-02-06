@@ -8,26 +8,17 @@ import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 
 public class HandlerVerticle extends AbstractVerticle {
-    private static Logger LOG = LoggerFactory.getLogger(HandlerVerticle.class);
-
     public static void main(String[] args) {
-        LOG.info("Starting...");
-        try {
+        Consumer<Vertx> runner = vertx -> {
+            try {
+                vertx.deployVerticle("vertx.HandlerVerticle");
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
 
-            Consumer<Vertx> runner = vertx -> {
-                try {
-                    vertx.deployVerticle("vertx.HandlerVerticle");
-                } catch (Throwable t) {
-                    t.printStackTrace();
-                }
-
-            };
-            Vertx vertx = Vertx.vertx();
-            runner.accept(vertx);
-        } catch (Exception ex) {
-            LOG.error("Exception caught in main: {}", ex.getMessage(), ex);
-        }
-        LOG.info("Ends...");
+        };
+        Vertx vertx = Vertx.vertx();
+        runner.accept(vertx);
     }
 
     @Override
