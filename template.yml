@@ -1,0 +1,2 @@
+language: vertx
+fprocess: 'java -jar $VERTICLE_FILE'
