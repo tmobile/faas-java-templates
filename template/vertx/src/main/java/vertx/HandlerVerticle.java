@@ -8,6 +8,26 @@ import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 
 public class HandlerVerticle extends AbstractVerticle {
+    public static void main(String[] args) {
+        LOG.info("Starting...");
+        try {
+
+            Consumer<Vertx> runner = vertx -> {
+                try {
+                    vertx.deployVerticle("vertx.HandlerVerticle");
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                }
+
+            };
+            Vertx vertx = Vertx.vertx();
+            runner.accept(vertx);
+        } catch (Exception ex) {
+            LOG.error("Exception caught in main: {}", ex.getMessage(), ex);
+        }
+        LOG.info("Ends...");
+    }
+
     @Override
     public void start() {
         HttpServerOptions serverOptions = new HttpServerOptions();
