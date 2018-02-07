@@ -5,7 +5,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 sourceCompatibility = 1.8
-mainClassName = 'vertx.HandlerVerticle'
+mainClassName = 'function.HandlerVerticle'
 
 repositories {
     mavenCentral()
