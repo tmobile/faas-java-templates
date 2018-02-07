@@ -9,7 +9,7 @@ WORKDIR $APP_HOME/function
 
 RUN ./gradlew clean fatJar
 
-FROM openjdk:alpine
+FROM openjdk:8-alpine
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
