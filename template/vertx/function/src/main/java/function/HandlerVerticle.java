@@ -1,6 +1,4 @@
-package vertx;
-
-import vertx.function.Handler;
+package function;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.*;
@@ -43,11 +41,9 @@ public class HandlerVerticle extends AbstractVerticle {
 
         Route route = router.route("/").handler(routingContext -> {
             String payload = routingContext.getBodyAsString();
-            Handler handler = new Handler();
-            String result = handler.Handle(payload.getBytes());
 
             routingContext.response()
-                    .write(result)
+                    .write(String.format("Hello, Vertx. You said: %s", payload))
                     .setStatusCode(200);
 
         });

@@ -6,8 +6,6 @@ RUN mkdir -p $APP_HOME/src/main/java/function
 WORKDIR $APP_HOME
 COPY . .
 
-COPY function/Handler.java $APP_HOME/src/main/java/vertx/function/Handler.java
-
 RUN ./gradlew clean fatJar
 
 FROM openjdk:alpine
@@ -18,7 +16,7 @@ RUN apk --no-cache add curl \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl --no-cache
 
-ENV VERTICLE_FILE vertx-handler-1.0-SNAPSHOT.jar
+ENV VERTICLE_FILE java-vertx-1.0-SNAPSHOT.jar
 ENV VERTICLE_HOME /usr/verticles
 
 COPY --from=builder /root/dev/vertx/build/libs/$VERTICLE_FILE $VERTICLE_HOME/
