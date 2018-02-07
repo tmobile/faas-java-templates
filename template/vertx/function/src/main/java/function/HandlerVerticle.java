@@ -12,7 +12,7 @@ public class HandlerVerticle extends AbstractVerticle {
     public static void main(String[] args) {
         Consumer<Vertx> runner = vertx -> {
             try {
-                vertx.deployVerticle("vertx.HandlerVerticle");
+                vertx.deployVerticle("function.HandlerVerticle");
             } catch (Throwable t) {
                 t.printStackTrace();
             }
