@@ -1,10 +1,11 @@
 FROM openjdk:8 AS builder
-ENV APP_HOME=/root/dev/vertx/
+ENV APP_HOME=/root/vertx/
 
-RUN mkdir -p $APP_HOME/src/main/java/function
+RUN mkdir -p $APP_HOME/function
 
-WORKDIR $APP_HOME
-COPY . .
+COPY function/ $APP_HOME/function/
+
+WORKDIR $APP_HOME/function
 
 RUN ./gradlew clean fatJar
 
@@ -19,7 +20,7 @@ RUN apk --no-cache add curl \
 ENV VERTICLE_FILE java-vertx-1.0-SNAPSHOT.jar
 ENV VERTICLE_HOME /usr/verticles
 
-COPY --from=builder /root/dev/vertx/build/libs/$VERTICLE_FILE $VERTICLE_HOME/
+COPY --from=builder /root/vertx/function/build/libs/$VERTICLE_FILE $VERTICLE_HOME/
 
 WORKDIR $VERTICLE_HOME
 
