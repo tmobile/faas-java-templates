@@ -24,7 +24,7 @@ public class HandlerVerticle extends AbstractVerticle {
     @Override
     public void start() {
         HttpServerOptions serverOptions = new HttpServerOptions();
-        serverOptions.setPort(80);
+        serverOptions.setPort(8081);
 
         vertx.createHttpServer(serverOptions)
                 .requestHandler(newRouter()::accept)

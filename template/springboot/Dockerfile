@@ -1,13 +1,13 @@
-FROM openjdk:8 AS builder
+FROM maven:3.5-jdk-3.5-jdk-8 as builder
+
 ENV APP_HOME=/root/vertx/
-
 RUN mkdir -p $APP_HOME/function
-
-COPY function/ $APP_HOME/function/
 
 WORKDIR $APP_HOME/function
 
-RUN ./gradlew clean fatJar
+COPY function/ .
+
+RUN mvn clean install
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
@@ -19,16 +19,12 @@ FROM openjdk:8-alpine
 
 RUN apk --no-cache add ca-certificates
 
-ENV VERTICLE_FILE java-vertx-1.0-SNAPSHOT.jar
-ENV VERTICLE_HOME /usr/verticles
-
-WORKDIR $VERTICLE_HOME
-
-COPY --from=builder /root/vertx/function/build/libs/$VERTICLE_FILE .
+COPY --from=builder $APP_HOME/function/target/*.jar app.jar
 COPY --from=builder /usr/bin/fwatchdog .
 
-ENV fprocess="java -jar $VERTICLE_FILE"
+ENV fprocess="java -jar app.jar"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:8081"
 
 CMD ["./fwatchdog"]
+
