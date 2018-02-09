@@ -1,2 +1,2 @@
 language: vertx
-fprocess: 'java -jar $VERTICLE_FILE'
+fprocess: 'java -jar $VERTICLE_HOME/$VERTICLE_FILE'

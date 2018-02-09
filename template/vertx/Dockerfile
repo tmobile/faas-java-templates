@@ -28,7 +28,7 @@ WORKDIR $VERTICLE_HOME
 COPY --from=builder /root/vertx/function/build/libs/$VERTICLE_FILE .
 COPY --from=builder /usr/bin/fwatchdog .
 
-ENV fprocess="java -jar $VERTICLE_FILE"
+ENV fprocess="java -jar $VERTICLE_HOME/$VERTICLE_FILE"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:8081"
 
