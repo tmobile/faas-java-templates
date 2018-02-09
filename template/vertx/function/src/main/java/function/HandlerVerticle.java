@@ -44,6 +44,7 @@ public class HandlerVerticle extends AbstractVerticle {
 
             routingContext.response()
                     .write(String.format("Hello, Vertx. You said: %s", payload))
+                    .setChunked(true)
                     .setStatusCode(200);
 
         });
