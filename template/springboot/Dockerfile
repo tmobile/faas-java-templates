@@ -1,4 +1,4 @@
-FROM maven:3.5-jdk-3.5-jdk-8 as builder
+FROM maven:3.5-jdk-8-alpine as builder
 
 ENV APP_HOME=/root/vertx/
 RUN mkdir -p $APP_HOME/function

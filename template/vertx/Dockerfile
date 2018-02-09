@@ -1,4 +1,5 @@
-FROM openjdk:8 AS builder
+FROM openjdk:8-alpine AS builder
+
 ENV APP_HOME=/root/vertx/
 
 RUN mkdir -p $APP_HOME/function
