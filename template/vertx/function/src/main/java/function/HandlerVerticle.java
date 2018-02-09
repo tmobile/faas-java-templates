@@ -41,10 +41,11 @@ public class HandlerVerticle extends AbstractVerticle {
 
         Route route = router.route("/").handler(routingContext -> {
             String payload = routingContext.getBodyAsString();
+            String response = String.format("Hello, Vertx. You said: %s", payload);
 
             routingContext.response()
-                    .write(String.format("Hello, Vertx. You said: %s", payload))
-                    .setChunked(true)
+                    .write(response)
+                    .putHeader("Content-Length", String.valueOf(response.length()))
                     .setStatusCode(200);
 
         });
