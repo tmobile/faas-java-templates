@@ -19,7 +19,7 @@ FROM openjdk:8-alpine
 
 RUN apk --no-cache add ca-certificates
 
-COPY --from=builder $APP_HOME/function/target/*.jar app.jar
+COPY --from=builder /root/vertx/function/target/*.jar app.jar
 COPY --from=builder /usr/bin/fwatchdog .
 
 ENV fprocess="java -jar app.jar"
