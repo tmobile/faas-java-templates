@@ -20,15 +20,14 @@ FROM openjdk:8-alpine
 
 RUN apk --no-cache add ca-certificates
 
-ENV VERTICLE_FILE java-vertx-1.0-SNAPSHOT.jar
-ENV VERTICLE_HOME /usr/verticles
+RUN mkdir -p /usr/verticles
 
-WORKDIR $VERTICLE_HOME
+WORKDIR /usr/verticles
 
-COPY --from=builder /root/vertx/function/build/libs/$VERTICLE_FILE .
+COPY --from=builder /root/vertx/function/build/libs/java-vertx-1.0-SNAPSHOT.jar .
 COPY --from=builder /usr/bin/fwatchdog .
 
-ENV fprocess="java -jar $VERTICLE_HOME/$VERTICLE_FILE"
+ENV fprocess="java -jar /usr/verticles/java-vertx-1.0-SNAPSHOT.jar"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:8081"
 
