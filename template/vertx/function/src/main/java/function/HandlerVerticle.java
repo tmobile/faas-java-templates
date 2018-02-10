@@ -39,7 +39,7 @@ public class HandlerVerticle extends AbstractVerticle {
     private Router newRouter() {
         Router router = Router.router(vertx);
 
-        Route route = router.route("/").handler(routingContext -> {
+        Route route = router.post("/").handler(routingContext -> {
             String payload = routingContext.getBodyAsString();
             String response = String.format("Hello, Vertx. You said: %s", payload);
 
