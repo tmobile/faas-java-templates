@@ -6,6 +6,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
 
 import java.util.function.Consumer;
 
@@ -43,7 +44,8 @@ public class HandlerVerticle extends AbstractVerticle {
     private Router newRouter() {
         Router router = Router.router(vertx);
 
-        router.post("/").handler(routingContext -> {
+        router.route().handler(BodyHandler.create());
+        router.route().method(HttpMethod.POST).path("/").handler(routingContext -> {
             String payload = routingContext.getBodyAsString();
             LOG.info(payload);
             String response = String.format("Hello, Vertx. You said: %s", payload);
@@ -55,8 +57,7 @@ public class HandlerVerticle extends AbstractVerticle {
             //end the response
             routingContext.response().end();
         });
-
-
+        
         return router;
     }
 }
