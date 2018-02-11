@@ -42,6 +42,15 @@ faas build {stack yml} --image {function docker image} --handler {path to your f
 
 ```
 
+## Push the Image to a Registry
+Once your function image is built you can push the image to a docker registry using the faas cli.
+
+```sh
+
+faas push -f {stack yml}
+
+```
+
 ## Deploying the function
 Once the function is built using the faas cli, you can simply deploy them as shown below
 
