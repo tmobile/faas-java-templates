@@ -45,19 +45,25 @@ public class HandlerVerticle extends AbstractVerticle {
         Router router = Router.router(vertx);
 
         router.route().handler(BodyHandler.create());
-        router.route().method(HttpMethod.POST).path("/").handler(routingContext -> {
-            String payload = routingContext.getBodyAsString();
-            LOG.info(payload);
-            String response = String.format("Hello, Vertx. You said: %s", payload);
-            routingContext.response()
-                    .putHeader("Content-Length", String.valueOf(response.length()))
-                    .setStatusCode(200)
-                    .write(response);
+        router.route()
+                .method(HttpMethod.POST)
+                .path("/")
+                .handler(routingContext -> {
+                    String payload = routingContext.getBodyAsString();
 
-            //end the response
-            routingContext.response().end();
+                    //dumping the posted payload for debugging purposes
+                    LOG.debug(payload);
+                    
+                    String response = String.format("Hello, Vertx. You said: %s", payload);
+                    routingContext.response()
+                            .putHeader("Content-Length", String.valueOf(response.length()))
+                            .setStatusCode(200)
+                            .write(response);
+
+                    //end the response
+                    routingContext.response().end();
         });
-        
+
         return router;
     }
 }
