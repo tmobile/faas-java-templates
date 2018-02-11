@@ -3,12 +3,16 @@ package function;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.*;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.ext.web.Route;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
 
 import java.util.function.Consumer;
 
+
 public class HandlerVerticle extends AbstractVerticle {
+    private static Logger LOG = LoggerFactory.getLogger(HandlerVerticle.class);
+
     public static void main(String[] args) {
         Consumer<Vertx> runner = vertx -> {
             try {
@@ -39,16 +43,19 @@ public class HandlerVerticle extends AbstractVerticle {
     private Router newRouter() {
         Router router = Router.router(vertx);
 
-        Route route = router.post("/").handler(routingContext -> {
+        router.post("/").handler(routingContext -> {
             String payload = routingContext.getBodyAsString();
+            LOG.info(payload);
             String response = String.format("Hello, Vertx. You said: %s", payload);
-
             routingContext.response()
                     .putHeader("Content-Length", String.valueOf(response.length()))
                     .setStatusCode(200)
                     .write(response);
 
+            //end the response
+            routingContext.response().end();
         });
+
 
         return router;
     }
