@@ -4,9 +4,9 @@ ENV APP_HOME=/root/vertx/
 
 RUN mkdir -p $APP_HOME/function
 
-COPY function/ $APP_HOME/function/
+WORKDIR $APP_HOME
 
-WORKDIR $APP_HOME/function
+COPY . .
 
 RUN ./gradlew clean fatJar
 
