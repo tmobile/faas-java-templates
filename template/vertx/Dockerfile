@@ -24,7 +24,7 @@ RUN mkdir -p /usr/verticles
 
 WORKDIR /usr/verticles
 
-COPY --from=builder /root/vertx/function/build/libs/java-vertx-1.0-SNAPSHOT.jar .
+COPY --from=builder /root/vertx/build/libs/java-vertx-1.0-SNAPSHOT.jar .
 COPY --from=builder /usr/bin/fwatchdog .
 
 ENV fprocess="java -jar /usr/verticles/java-vertx-1.0-SNAPSHOT.jar"
