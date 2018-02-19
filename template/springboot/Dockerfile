@@ -1,13 +1,17 @@
 FROM maven:3.5-jdk-8-alpine as builder
 
-ENV APP_HOME=/root/vertx/
+ENV APP_HOME=/root/springboot/
+
 RUN mkdir -p $APP_HOME/function
 
-WORKDIR $APP_HOME/function
+WORKDIR $APP_HOME
 
-COPY function/ .
+COPY . .
 
-RUN mvn clean install
+RUN cd function \
+    && mvn clean install \
+    && cd ../ \
+    && mvn clean install -DskipTests
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
@@ -19,7 +23,7 @@ FROM openjdk:8-alpine
 
 RUN apk --no-cache add ca-certificates
 
-COPY --from=builder /root/vertx/function/target/*.jar app.jar
+COPY --from=builder /root/springboot/target/*.jar app.jar
 COPY --from=builder /usr/bin/fwatchdog .
 
 ENV fprocess="java -jar app.jar"

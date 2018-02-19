@@ -14,15 +14,22 @@
 // limitations under the License.
 // See the readme.txt file for additional language around disclaimer of warranties.
 // =========================================================================
-package com.faas.function;
+package com.tmobile.faas;
 
+import function.Handler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class FunctionHandlerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FunctionHandlerApplication.class, args);
+	}
+
+	@Bean
+	Handler getHandler() {
+		return new Handler();
 	}
 }
