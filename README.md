@@ -8,7 +8,7 @@ Additional requirement is you need to have Faas cli installed and configured to 
 
 ```sh
 
-faas template pull git@github.com:tmobile/faas-java-templates.git
+faas template pull https://github.com/tmobile/faas-java-templates.git
 
 ```
 
