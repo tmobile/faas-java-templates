@@ -67,7 +67,9 @@ public class HandlerVerticle extends AbstractVerticle {
                 .path("/")
                 .handler(routingContext -> {
                     String payload = routingContext.getBodyAsString();
-
+                    if(payload == null)
+                        payload = "";
+                    
                     //dumping the posted payload for debugging purposes
                     LOG.debug(payload);
 
