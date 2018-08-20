@@ -1,4 +1,4 @@
-package com.faas.function;
+package com.tmobile.faas;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
